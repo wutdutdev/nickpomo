@@ -172,16 +172,58 @@ body {
     .container {
         padding: 1.5rem;
         border-radius: 15px;
+        width: 85%;
+        min-width: 280px;
     }
     
     .timer {
-        font-size: 4rem;
+        font-size: 3.5rem;
+        margin: 1.5rem 0;
     }
     
-    .controls button,
-    .toggle-container button {
+    h1 {
+        font-size: 1.5rem;
+        margin: 0.5rem 0;
+    }
+    
+    .controls {
+        gap: 0.5rem;
+    }
+    
+    .controls button {
         min-width: 100px;
         padding: 0.6rem 0.75rem;
         font-size: 1rem;
+    }
+
+    #status-text {
+        font-size: 1rem;
+        margin: 0.75rem 0;
+    }
+
+    #total-work-time {
+        font-size: 0.8rem;
+        margin: 0.5rem 0;
+    }
+
+    .mode-icon {
+        padding: 6px;
+        top: 0.75rem;
+        right: 0.75rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .timer {
+        font-size: 3rem;
+    }
+    
+    .controls button {
+        min-width: 90px;
+        padding: 0.5rem 0.6rem;
     }
 } 
