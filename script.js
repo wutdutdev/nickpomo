@@ -11,14 +11,17 @@ const startButton = document.getElementById('start');
 const resetButton = document.getElementById('reset');
 const statusText = document.getElementById('status-text');
 const totalWorkTimeDisplay = document.getElementById('total-work-time');
+const modeToggle = document.getElementById('mode-toggle');
+const modeIcon = modeToggle.querySelector('.material-icons');
 
-// Add event listeners for mode buttons
-document.getElementById('work-mode').addEventListener('click', () => {
-    setMode('work');
-});
-
-document.getElementById('rest-mode').addEventListener('click', () => {
-    setMode('rest');
+modeToggle.addEventListener('click', () => {
+    if (isWorkTime) {
+        setMode('rest');
+        modeIcon.textContent = 'coffee';
+    } else {
+        setMode('work');
+        modeIcon.textContent = 'work';
+    }
 });
 
 function setMode(mode) {
@@ -27,9 +30,8 @@ function setMode(mode) {
     clearInterval(timerId);
     timerId = null;
     
-    // Update button states
-    document.getElementById('work-mode').classList.toggle('active', mode === 'work');
-    document.getElementById('rest-mode').classList.toggle('active', mode === 'rest');
+    // Update button state
+    modeToggle.classList.toggle('active', mode === 'rest');
     
     // Set appropriate time
     timeLeft = mode === 'work' ? workTime : restTime;
@@ -45,11 +47,9 @@ function updateDisplay() {
     const seconds = timeLeft % 60;
     const timeString = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     
-    // Update the display
     minutesDisplay.textContent = String(minutes).padStart(2, '0');
     secondsDisplay.textContent = String(seconds).padStart(2, '0');
     
-    // Update the document title
     document.title = `${timeString} - Pomodoro Timer`;
 }
 
@@ -62,7 +62,6 @@ function startTimer() {
 
     timerId = setInterval(() => {
         timeLeft--;
-        // Track total work time when in work mode
         if (isWorkTime) {
             totalWorkSeconds++;
             updateTotalWorkTime();
@@ -90,8 +89,8 @@ function resetTimer() {
     timerId = null;
     isWorkTime = true;
     timeLeft = workTime;
-    totalWorkSeconds = 0; // Reset total work time
-    updateTotalWorkTime(); // Update the display
+    totalWorkSeconds = 0;
+    updateTotalWorkTime();
     statusText.textContent = "Let's Get To Work!";
     updateDisplay();
     startButton.textContent = 'Start Work';
